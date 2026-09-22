@@ -14,7 +14,7 @@ modulos = st.sidebar.selectbox("Selecione el módulo",["Home","Ejercicio1", "Eje
 
 if modulos == "Home":
 
-  st.title("APLICACIÓN EN STREAMLIT")
+  st.subheader("APLICACIÓN EN STREAMLIT")
   st.write("Te encuentras en el módulo de listas")
 
   valor_inicial = int(st.number_input("Ingresa tu valor inicial del rango", value=0))
