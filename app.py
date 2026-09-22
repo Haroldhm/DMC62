@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 import libreria_funciones as lf
 
-st.title("APLICACIÓN EN STREAMLIT")
+
 st.sidebar.title("Parámetros")
 st.write("Elaborado por: Harold Hernandez")
 
@@ -13,6 +13,8 @@ st.sidebar.image("DMC.png",width =250)
 modulos = st.sidebar.selectbox("Selecione el módulo",["Home","Ejercicio1", "Ejercicio2", "Ejercicio3", "Ejercicio4"])
 
 if modulos == "Home":
+
+  st.title("APLICACIÓN EN STREAMLIT")
   st.write("Te encuentras en el módulo de listas")
 
   valor_inicial = int(st.number_input("Ingresa tu valor inicial del rango", value=0))
