@@ -1,5 +1,6 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 import libreria_funciones as lf
 
 ##Elaboracion de sidebar
@@ -33,6 +34,7 @@ if modulos == "Home":
 
 elif modulos == "Ejercicio1":
   st.subheader("EJERCICIO 1")
+  
   # Inicializar la lista vacía en la sesión de Streamlit para no perder los datos
   if "movimientos" not in st.session_state:
       st.session_state.movimientos = []
@@ -90,7 +92,66 @@ elif modulos == "Ejercicio1":
  ## st.write(arreglo)
 
 elif modulos == "Ejercicio2":
-  st.write("Te encuentras en el módulo de arreglos")
+  st.subheader("EJERCICIO 2")
+  # Inicializar los arreglos de NumPy en la sesión de Streamlit
+  if "nombres" not in st.session_state:
+      st.session_state.nombres = np.array([])
+      st.session_state.categorias = np.array([])
+      st.session_state.precios = np.array([])
+      st.session_state.cantidades = np.array([])
+      st.session_state.totales = np.array([])
+  
+  # --- DESCRIPCIÓN DEL EJERCICIO CON ST.MARKDOWN() ---
+  st.markdown("""
+  # Registro de Productos y Ventas
+  En este ejercicio se registra la información de productos utilizando arreglos de NumPy.
+  Ingresa el nombre, la categoría, el precio y la cantidad. El total se calculará automáticamente
+  y la tabla en DataFrame se actualizará al agregar el registro.
+  """)
+  
+  # --- FORMULARIO DE INGRESO DE DATOS ---
+  nombre = st.text_input("Nombre del producto:")
+  categoria = st.selectbox(
+      "Categoría:", ["Electrónica", "Ropa", "Alimentos", "Otros"]
+  )
+  precio = st.number_input("Precio:", min_value=0.0)
+  cantidad = st.number_input("Cantidad:", min_value=0, step=1)
+  
+  # Cálculo automático del total
+  total = precio * cantidad
+  
+  # --- BOTÓN PARA AGREGAR NUEVO REGISTRO ---
+  if st.button("Agregar producto"):
+      # Agregar los datos a cada array de NumPy usando np.append
+      st.session_state.nombres = np.append(st.session_state.nombres, nombre)
+      st.session_state.categorias = np.append(
+          st.session_state.categorias, categoria
+      )
+      st.session_state.precios = np.append(st.session_state.precios, precio)
+      st.session_state.cantidades = np.append(
+          st.session_state.cantidades, cantidad
+      )
+      st.session_state.totales = np.append(st.session_state.totales, total)
+  
+  # --- CONVERSIÓN DE ARREGLOS DE NUMPY A DATAFRAME Y MUESTRA EN PANTALLA ---
+  df_productos = pd.DataFrame({
+      "Producto": st.session_state.nombres,
+      "Categoría": st.session_state.categorias,
+      "Precio": st.session_state.precios,
+      "Cantidad": st.session_state.cantidades,
+      "Total": st.session_state.totales,
+  })
+  
+  # Mostrar la tabla en DataFrame actualizada
+  st.dataframe(df_productos)  
+
+
+
+
+
+
+
+
 
 elif modulos == "Ejercicio3":
   st.write("Te encuentras en el módulo de Funciones")
