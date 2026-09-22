@@ -7,7 +7,7 @@ st.sidebar.title("Parámetros")
 st.write("Elaborado por: Harold Hernandez")
 
 st.image("Logo_proyecto.png",width =2000)
-st.sidebar.image("DMC.png")
+st.sidebar.image("DMC.png",width =200)
 
 
 modulos = st.sidebar.selectbox("Selecione el módulo",["Listas", "Arreglos", "Funciones", "POO"])
