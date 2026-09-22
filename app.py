@@ -3,7 +3,7 @@ import numpy as np
 import libreria_funciones as lf
 
 ##Elaboracion de sidebar
-st.sidebar.title("Parámetros")
+st.sidebar.title("Paginas")
 st.sidebar.image("DMC.png",width =250)
 
 ##Creacion de tema/logo pagina
