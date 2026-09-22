@@ -10,9 +10,9 @@ st.image("Logo_proyecto.png",width =2000)
 st.sidebar.image("DMC.png",width =250)
 
 
-modulos = st.sidebar.selectbox("Selecione el módulo",["Listas", "Arreglos", "Funciones", "POO"])
+modulos = st.sidebar.selectbox("Selecione el módulo",["Home","Ejercicio1", "Ejercicio2", "Ejercicio3", "Ejercicio4"])
 
-if modulos == "Listas":
+if modulos == "Home":
   st.write("Te encuentras en el módulo de listas")
 
   valor_inicial = int(st.number_input("Ingresa tu valor inicial del rango", value=0))
@@ -22,7 +22,7 @@ if modulos == "Listas":
 
   st.write(lista)
 
-elif modulos == "Arreglos":
+elif modulos == "Ejercicio1":
   st.write("Te encuentras en el módulo de arreglos")
 
   cantidad = st.slider("Seleccione un valor del rango", min_value = 1, max_value = 100, value=20 )
@@ -30,8 +30,10 @@ elif modulos == "Arreglos":
 
   st.write(arreglo)
 
+elif modulos == "Ejercicio2":
+  st.write("Te encuentras en el módulo de arreglos")
 
-elif modulos == "Funciones":
+elif modulos == "Ejercicio3":
   st.write("Te encuentras en el módulo de Funciones")
   capital_i = st.number_input("Ingrese el capital inicial", min_value = 0 , max_value = 100000, value=1000)
   aporte_m = st.number_input("Ingrese el aporte mensual", min_value = 0 , max_value = 10000, value=100)
@@ -42,5 +44,5 @@ elif modulos == "Funciones":
   st.write("El resultados de tu valor futuro de inversión es: ",round(resultado_valor_futuro,2))
   
 else:
-  st.write("Te encuentras en el módulo de POO")
+  st.write("Te encuentras en el módulo de Ejercicio4")
   
