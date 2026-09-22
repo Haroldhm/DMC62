@@ -30,6 +30,7 @@ if modulos == "Home":
 
   st.write(lista)
 """
+
 elif modulos == "Ejercicio1":
   st.write("Te encuentras en el módulo de arreglos")
 
