@@ -35,79 +35,79 @@ elif modulos == "Ejercicio1":
   st.subheader("EJERCICIO 1")
 st.set_page_config(page_title="Control Financiero Simple", page_icon="💰")
 
-# 1. Inicializar la lista vacía en la sesión de Streamlit
-if "movimientos" not in st.session_state:
+  # 1. Inicializar la lista vacía en la sesión de Streamlit
+  if "movimientos" not in st.session_state:
     st.session_state.movimientos = []
 
-# 2. Descripción del ejercicio con st.markdown()
-st.title("💰 Módulo de Movimientos Financieros")
+  # 2. Descripción del ejercicio con st.markdown()
+  st.title("💰 Módulo de Movimientos Financieros")
 
-st.markdown("""
-Esta aplicación permite registrar **ingresos y gastos** de forma sencilla.
-Ingresa los datos del movimiento y presiona el botón para guardarlo.
-""")
+  st.markdown("""
+  Esta aplicación permite registrar **ingresos y gastos** de forma sencilla.
+  Ingresa los datos del movimiento y presiona el botón para guardarlo.
+  """)
 
-st.divider()
+  st.divider()
 
-# 3. Widgets para ingresar los datos
-concepto = st.text_input("Concepto:", placeholder="Ej. Sueldo, Alquiler...")
-tipo = st.selectbox("Tipo de movimiento:", ["Ingreso", "Gasto"])
-valor = st.number_input("Valor ($):", min_value=0.0, step=1.0)
+  # 3. Widgets para ingresar los datos
+  concepto = st.text_input("Concepto:", placeholder="Ej. Sueldo, Alquiler...")
+  tipo = st.selectbox("Tipo de movimiento:", ["Ingreso", "Gasto"])
+  valor = st.number_input("Valor ($):", min_value=0.0, step=1.0)
 
-# 4. Botón para agregar movimientos a la lista
-if st.button("➕ Agregar movimiento"):
-    if concepto != "" and valor > 0:
-        # Agregamos un diccionario con el movimiento a nuestra lista
-        st.session_state.movimientos.append(
-            {"concepto": concepto, "tipo": tipo, "valor": valor}
-        )
-        st.success("¡Movimiento registrado con éxito!")
-    else:
-        st.warning("Escribe un concepto y un valor mayor a cero.")
+  # 4. Botón para agregar movimientos a la lista
+    if st.button("➕ Agregar movimiento"):
+      if concepto != "" and valor > 0:
+          # Agregamos un diccionario con el movimiento a nuestra lista
+          st.session_state.movimientos.append(
+              {"concepto": concepto, "tipo": tipo, "valor": valor}
+          )
+          st.success("¡Movimiento registrado con éxito!")
+      else:
+          st.warning("Escribe un concepto y un valor mayor a cero.")
 
-st.divider()
+  st.divider()
 
 # 5. Mostrar la lista y realizar los cálculos
-st.subheader("📋 Lista de movimientos")
+  st.subheader("📋 Lista de movimientos")
 
-if len(st.session_state.movimientos) == 0:
-    st.info("No hay movimientos registrados aún.")
-else:
-    # Variables para calcular los totales
-    total_ingresos = 0.0
-    total_gastos = 0.0
+  if len(st.session_state.movimientos) == 0:
+      st.info("No hay movimientos registrados aún.")
+  else:
+      # Variables para calcular los totales
+      total_ingresos = 0.0
+      total_gastos = 0.0
 
-    # Recorremos la lista para mostrarla y sumar
-    for item in st.session_state.movimientos:
-        st.write(f"• **{item['concepto']}** ({item['tipo']}): ${item['valor']:,.2f}")
+      # Recorremos la lista para mostrarla y sumar
+      for item in st.session_state.movimientos:
+          st.write(f"• **{item['concepto']}** ({item['tipo']}): ${item['valor']:,.2f}")
 
-        if item["tipo"] == "Ingreso":
-            total_ingresos += item["valor"]
-        else:
-            total_gastos += item["valor"]
+          if item["tipo"] == "Ingreso":
+              total_ingresos += item["valor"]
+          else:
+              total_gastos += item["valor"]
 
-    saldo_final = total_ingresos - total_gastos
+      saldo_final = total_ingresos - total_gastos
 
-    st.divider()
+      st.divider()
 
-    # 6. Muestra de métricas y resultado final
-    st.subheader("📊 Resultados")
+      # 6. Muestra de métricas y resultado final
+      st.subheader("📊 Resultados")
 
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Total Ingresos", f"${total_ingresos:,.2f}")
-    col2.metric("Total Gastos", f"${total_gastos:,.2f}")
-    col3.metric("Saldo Final", f"${saldo_final:,.2f}")
+      col1, col2, col3 = st.columns(3)
+      col1.metric("Total Ingresos", f"${total_ingresos:,.2f}")
+      col2.metric("Total Gastos", f"${total_gastos:,.2f}")
+      col3.metric("Saldo Final", f"${saldo_final:,.2f}")
 
-    # Indicar si el flujo de caja está a favor o en contra
-    if saldo_final >= 0:
-        st.success(f"🟢 El flujo de caja está **A FAVOR**")
-    else:
-        st.error(f"🔴 El flujo de caja está **EN CONTRA**")
+      # Indicar si el flujo de caja está a favor o en contra
+      if saldo_final >= 0:
+          st.success(f"🟢 El flujo de caja está **A FAVOR**")
+      else:
+          st.error(f"🔴 El flujo de caja está **EN CONTRA**")
 
-    # Botón para limpiar la lista
-    if st.button("🗑️ Limpiar todo"):
-        st.session_state.movimientos = []
-        st.rerun()
+      # Botón para limpiar la lista
+      if st.button("🗑️ Limpiar todo"):
+          st.session_state.movimientos = []
+          st.rerun()
 
 
 
