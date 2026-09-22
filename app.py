@@ -4,9 +4,9 @@ import libreria_funciones as lf
 
 st.title("Especialización Python for Analytics")
 st.sidebar.title("Parámetros")
-st.write("Elaborado por: Carlos Carrillo")
+st.write("Elaborado por: Harold Hernandez")
 
-st.image("Logo_proyecto.png",width =300)
+st.image("Logo_proyecto.png",width =2000)
 st.sidebar.image("DMC.png")
 
 
