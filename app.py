@@ -2,13 +2,13 @@ import streamlit as st
 import numpy as np
 import libreria_funciones as lf
 
-
+##Elaboracion de sidebar
 st.sidebar.title("Parámetros")
-st.write("Elaborado por: Harold Hernandez")
-
-st.image("Logo_proyecto.png",width =2000)
 st.sidebar.image("DMC.png",width =250)
 
+##Creacion de tema/logo pagina
+st.image("Logo_proyecto.png",width =2000)
+st.write("Elaborado por: Harold Hernandez")
 
 modulos = st.sidebar.selectbox("Selecione el módulo",["Home","Ejercicio1", "Ejercicio2", "Ejercicio3", "Ejercicio4"])
 
