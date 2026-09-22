@@ -16,8 +16,11 @@ if modulos == "Home":
 
   st.subheader("APLICACIÓN EN STREAMLIT")
   st.markdown("**Nombre:** Harold Hernandez Medina")
-  st.write("Harold Hernandez Medina")
-  st.write("Te encuentras en el módulo de listas")
+  st.markdown("**Modulo:**  Python Fundamentals")
+  st.markdown("**Edad:**  25 años")
+  st.markdown("**Año:**  2026")
+  st.markdown("**Descripcion:**   una aplicación interactiva en Streamlit integrando los contenidos revisados en el módulo")
+  st.markdown("**Tecnologias:**  GitHub,Streamlit,Python")
 
   
 
