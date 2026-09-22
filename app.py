@@ -33,84 +33,56 @@ if modulos == "Home":
 
 elif modulos == "Ejercicio1":
   st.subheader("EJERCICIO 1")
-  st.set_page_config(page_title="Control Financiero Simple", page_icon="💰")
-
-    # 1. Inicializar la lista vacía en la sesión de Streamlit
-    if "movimientos" not in st.session_state:
-        st.session_state.movimientos = []
-    
-    # 2. Descripción del ejercicio con st.markdown()
-    st.title("💰 Módulo de Movimientos Financieros")
-    
-    st.markdown("""
-    Esta aplicación permite registrar **ingresos y gastos** de forma sencilla.
-    Ingresa los datos del movimiento y presiona el botón para guardarlo.
-    """)
-    
-    st.divider()
-    
-    # 3. Widgets para ingresar los datos
-    concepto = st.text_input("Concepto:", placeholder="Ej. Sueldo, Alquiler...")
-    tipo = st.selectbox("Tipo de movimiento:", ["Ingreso", "Gasto"])
-    valor = st.number_input("Valor ($):", min_value=0.0, step=1.0)
-    
-    # 4. Botón para agregar movimientos a la lista
-    if st.button("➕ Agregar movimiento"):
-        if concepto != "" and valor > 0:
-            # Agregamos un diccionario con el movimiento a nuestra lista
-            st.session_state.movimientos.append(
-                {"concepto": concepto, "tipo": tipo, "valor": valor}
-            )
-            st.success("¡Movimiento registrado con éxito!")
-        else:
-            st.warning("Escribe un concepto y un valor mayor a cero.")
-    
-    st.divider()
-    
-    # 5. Mostrar la lista y realizar los cálculos
-    st.subheader("📋 Lista de movimientos")
-    
-    if len(st.session_state.movimientos) == 0:
-        st.info("No hay movimientos registrados aún.")
-    else:
-        # Variables para calcular los totales
-        total_ingresos = 0.0
-        total_gastos = 0.0
-    
-        # Recorremos la lista para mostrarla y sumar
-        for item in st.session_state.movimientos:
-            st.write(f"• **{item['concepto']}** ({item['tipo']}): ${item['valor']:,.2f}")
-    
-            if item["tipo"] == "Ingreso":
-                total_ingresos += item["valor"]
-            else:
-                total_gastos += item["valor"]
-    
-        saldo_final = total_ingresos - total_gastos
-    
-        st.divider()
-    
-        # 6. Muestra de métricas y resultado final
-        st.subheader("📊 Resultados")
-    
-        col1, col2, col3 = st.columns(3)
-        col1.metric("Total Ingresos", f"${total_ingresos:,.2f}")
-        col2.metric("Total Gastos", f"${total_gastos:,.2f}")
-        col3.metric("Saldo Final", f"${saldo_final:,.2f}")
-    
-        # Indicar si el flujo de caja está a favor o en contra
-        if saldo_final >= 0:
-            st.success(f"🟢 El flujo de caja está **A FAVOR**")
-        else:
-            st.error(f"🔴 El flujo de caja está **EN CONTRA**")
-    
-        # Botón para limpiar la lista
-        if st.button("🗑️ Limpiar todo"):
-            st.session_state.movimientos = []
-            st.rerun()
-
-
-
+  # Inicializar la lista vacía en la sesión de Streamlit para no perder los datos
+  if "movimientos" not in st.session_state:
+      st.session_state.movimientos = []
+  
+  # --- DESCRIPCIÓN CON ST.MARKDOWN() ---
+  st.markdown("""
+  # Registro de Movimientos Financieros
+  En este módulo podrás registrar tus ingresos y gastos de manera rápida. 
+  Ingresa el concepto, selecciona el tipo de movimiento y coloca el valor. 
+  Al presionar el botón, el registro se agregará a la lista y se calculará el flujo de caja final.
+  """)
+  
+  # --- WIDGETS PARA INGRESAR DATOS ---
+  concepto = st.text_input("Ingresa el concepto:")
+  tipo = st.selectbox("Selecciona el tipo de movimiento:", ["Ingreso", "Gasto"])
+  valor = st.number_input("Ingresa el valor:", min_value=0.0)
+  
+  # --- BOTÓN PARA AGREGAR MOVIMIENTOS ---
+  if st.button("Agregar movimiento"):
+      # Se agrega el movimiento como un diccionario a la lista
+      st.session_state.movimientos.append(
+          {"concepto": concepto, "tipo": tipo, "valor": valor}
+      )
+  
+  # --- MOSTRAR LISTA DE MOVIMIENTOS ---
+  st.subheader("Lista de movimientos registrados:")
+  st.dataframe(st.session_state.movimientos)
+  
+  # --- CÁLCULO DE TOTALES Y SALDO FINAL ---
+  total_ingresos = 0.0
+  total_gastos = 0.0
+  
+  for movimiento in st.session_state.movimientos:
+      if movimiento["tipo"] == "Ingreso":
+          total_ingresos += movimiento["valor"]
+      else:
+          total_gastos += movimiento["valor"]
+  
+  saldo_final = total_ingresos - total_gastos
+  
+  # --- RESULTADOS Y MÉTRICAS ---
+  st.metric("Total Ingresos", total_ingresos)
+  st.metric("Total Gastos", total_gastos)
+  st.metric("Saldo Final", saldo_final)
+  
+  # --- INDICADOR DEL FLUJO DE CAJA ---
+  if saldo_final >= 0:
+      st.success("El flujo de caja está: A FAVOR")
+  else:
+      st.error("El flujo de caja está: EN CONTRA") 
 
  ## cantidad = st.slider("Seleccione un valor del rango", min_value = 1, max_value = 100, value=20 )
  ## arreglo = np.arange(cantidad)
