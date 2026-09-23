@@ -241,9 +241,9 @@ else:
   registros = [{"Nombre": p.nombre,
         "Peso (kg)": p.peso_kg,
         "Altura (m)": p.altura_m,
-        "Imc:" p.calcular_imc(),
-        "Clasificacion_imc:" p.clacificacion_imc(),
-        "Superficie_corporal:" p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
+        "Imc": p.calcular_imc(),
+        "Clasificacion_imc": p.clacificacion_imc(),
+        "Superficie_corporal": p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
   tab_leer.dataframe(pd.DataFrame(registros))
   
   # =========================================================
