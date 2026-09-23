@@ -15,6 +15,10 @@ st.write("Elaborado por: Harold Hernandez")
 
 modulos = st.sidebar.selectbox("Selecione el módulo",["Home","Ejercicio1", "Ejercicio2", "Ejercicio3", "Ejercicio4"])
 
+#####################################################################################################################
+####### MODULO HOME
+######################################################################################################################
+
 if modulos == "Home":
 
   st.subheader("APLICACIÓN EN STREAMLIT")
@@ -25,14 +29,9 @@ if modulos == "Home":
   st.markdown("**Descripcion:**  Una aplicación interactiva en Streamlit integrando los contenidos revisados en el módulo")
   st.markdown("**Tecnologias:**  GitHub,Streamlit,Python")
 
-
-## valor_inicial = int(st.number_input("Ingresa tu valor inicial del rango", value=0))
-## valor_final = int(st.number_input("Ingresa tu valor final del rango",value=10))
-
-##  lista = list(range(valor_inicial, valor_final))
-
-##  st.write(lista)
-
+######################################################################################################################
+####### EJERCICIO 1
+######################################################################################################################
 
 elif modulos == "Ejercicio1":
   st.subheader("EJERCICIO 1")
@@ -88,10 +87,10 @@ elif modulos == "Ejercicio1":
   else:
       st.error("El flujo de caja está: EN CONTRA") 
 
- ## cantidad = st.slider("Seleccione un valor del rango", min_value = 1, max_value = 100, value=20 )
- ## arreglo = np.arange(cantidad)
+######################################################################################################################
+####### EJERCICIO 2
+######################################################################################################################
 
- ## st.write(arreglo)
 
 elif modulos == "Ejercicio2":
   st.subheader("EJERCICIO 2")
@@ -147,6 +146,9 @@ elif modulos == "Ejercicio2":
   # Mostrar la tabla en DataFrame actualizada
   st.dataframe(df_productos)  
 
+######################################################################################################################
+####### EJERCICIO 3
+######################################################################################################################
 
 elif modulos == "Ejercicio3":
   # --- FUNCIONES DE VALIDACIÓN Y CÁLCULO PROPORCIONADAS ---
@@ -158,10 +160,6 @@ elif modulos == "Ejercicio3":
   def validar_porcentaje(valor: float, nombre: str):
       if valor < 0:
           raise ValueError(f"El parámetro {nombre} no puede ser negativo.")
-  
-  ###########################################################
-  
-  ########################################################33
   
   # --- INICIALIZAR EL HISTÓRICO EN LA SESIÓN ---
   if "historico" not in st.session_state:
@@ -209,17 +207,16 @@ elif modulos == "Ejercicio3":
   st.write("### Histórico de resultados obtenidos")
   st.dataframe(pd.DataFrame(st.session_state.historico))
   
-
-  
+######################################################################################################################
+####### EJERCICIO 4
+######################################################################################################################
+ 
 else:
   st.subheader("EJERCICIO 4")
   def validar_positivo(valor: float, nombre: str):
       if valor <= 0:
           raise ValueError(f"El parámetro {nombre} debe ser mayor a 0.")
-#################################################################  
-  
-  
- ############################################################################ 
+
   # --- INICIALIZAR LA LISTA DE PACIENTES EN LA SESIÓN ---
   if "pacientes" not in st.session_state:
       st.session_state.pacientes = []
