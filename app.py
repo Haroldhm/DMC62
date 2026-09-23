@@ -238,7 +238,7 @@ else:
   # 2. LEER / VISUALIZAR REGISTROS
   # =========================================================
   registros = [p.resumen() for p in st.session_state.pacientes]
-  tab_leer.dataframe(pd.DataFrame(registros+nuevo_paciente))
+  tab_leer.dataframe(pd.DataFrame([registros+nuevo_paciente]))
   
   # =========================================================
   # 3. ACTUALIZAR REGISTRO
