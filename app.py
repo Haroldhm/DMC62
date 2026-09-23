@@ -233,6 +233,12 @@ else:
       if nombre != "" and peso_kg > 0 and altura_m > 0:
           nuevo_paciente = Paciente(nombre, peso_kg, altura_m)
           st.session_state.pacientes.append(nuevo_paciente)
+      registros = [{"Nombre": p.nombre,
+        "Peso (kg)": p.peso_kg,
+        "Altura (m)": p.altura_m,
+        "Imc": p.calcular_imc(),
+        "Clasificacion_imc": p.clasificacion_imc(),
+        "Superficie_corporal": p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
       tab_crear.dataframe(pd.DataFrame(registros))
   
   # =========================================================
