@@ -42,8 +42,9 @@ elif modulos == "Ejercicio1":
   
   # --- DESCRIPCIÓN CON ST.MARKDOWN() ---
   st.markdown("""
-  # Registro de Movimientos Financieros
-  En este módulo podrás registrar tus ingresos y gastos de manera rápida. 
+  # Flujo de caja con listas
+  
+  En este módulo puedes registrar tus ingresos y gastos de manera rápida. 
   Ingresa el concepto, selecciona el tipo de movimiento y coloca el valor. 
   Al presionar el botón, el registro se agregará a la lista y se calculará el flujo de caja final.
   """)
@@ -104,9 +105,10 @@ elif modulos == "Ejercicio2":
   
   # --- DESCRIPCIÓN DEL EJERCICIO CON ST.MARKDOWN() ---
   st.markdown("""
-  # Registro de Productos y Ventas
-  En este ejercicio se registra la información de productos utilizando arreglos de NumPy.
-  Ingresa el nombre, la categoría, el precio y la cantidad. El total se calculará automáticamente
+  #  Registro con NumPy, arrays y DataFrame (Registro de Ventas)
+  
+  Se registra la información de productos utilizando arreglos de NumPy.
+  Ingresa el nombre, la categoría(4 categorias), el precio y la cantidad. El total se calculará automáticamente
   y la tabla en DataFrame se actualizará al agregar el registro.
   """)
   
@@ -151,11 +153,15 @@ elif modulos == "Ejercicio2":
 ######################################################################################################################
 
 elif modulos == "Ejercicio3":
+  st.markdown("""
+  #  Generacion el calculo de la cuota prestamo en formato frances
+
+  Se registra el monto total (capital), la tasa y el plazo a dar el prestamo. Posteriormete se hara el calculo y te indicara la cuota y el monto final con intereses
+  """)
   # --- FUNCIONES DE VALIDACIÓN Y CÁLCULO PROPORCIONADAS ---
   def validar_positivo(valor: float, nombre: str):
       if valor <= 0:
           raise ValueError(f"El parámetro {nombre} debe ser mayor a 0.")
-  
   
   def validar_porcentaje(valor: float, nombre: str):
       if valor < 0:
