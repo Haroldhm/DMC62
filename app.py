@@ -241,7 +241,7 @@ else:
         "Peso (kg)": p.peso_kg,
         "Altura (m)": p.altura_m,
         **p.resumen()} for p in st.session_state.pacientes]
-  tab_leer.dataframe(pd.DataFrame([registros+nuevo_paciente]))
+  tab_leer.dataframe(pd.DataFrame(registros))
   
   # =========================================================
   # 3. ACTUALIZAR REGISTRO
