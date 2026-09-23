@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import libreria_funciones as lf
+import libreria_funciones_proyecto1 as lfp
 
 ##Elaboracion de sidebar
 st.sidebar.title("Paginas")
@@ -146,22 +147,68 @@ elif modulos == "Ejercicio2":
   st.dataframe(df_productos)  
 
 
-
-
-
-
-
-
-
 elif modulos == "Ejercicio3":
-  st.write("Te encuentras en el módulo de Funciones")
-  capital_i = st.number_input("Ingrese el capital inicial", min_value = 0 , max_value = 100000, value=1000)
-  aporte_m = st.number_input("Ingrese el aporte mensual", min_value = 0 , max_value = 10000, value=100)
-  tasa_a = st.slider("Ingrese el aporte mensual", min_value = 0.01 , max_value = 1.00, value=0.05)
-  anios = st.slider("Ingrese el aporte mensual", min_value = 1 , max_value = 20, value=2)
+  # --- FUNCIONES DE VALIDACIÓN Y CÁLCULO PROPORCIONADAS ---
+  def validar_positivo(valor: float, nombre: str):
+      if valor <= 0:
+          raise ValueError(f"El parámetro {nombre} debe ser mayor a 0.")
+  
+  
+  def validar_porcentaje(valor: float, nombre: str):
+      if valor < 0:
+          raise ValueError(f"El parámetro {nombre} no puede ser negativo.")
+  
+  ###########################################################
+  
+  ########################################################33
+  
+  # --- INICIALIZAR EL HISTÓRICO EN LA SESIÓN ---
+  if "historico" not in st.session_state:
+      st.session_state.historico = []
+  
+  # --- SELECTOR DE FUNCIÓN ---
+  opcion_funcion = st.selectbox(
+      "Selecciona la función a ejecutar:",
+      ["Calcular Cuota Préstamo (Sistema Francés)"],
+  )
+  
+  # --- WIDGETS PARA INGRESAR PARÁMETROS ---
+  monto = st.number_input("Monto del préstamo:", min_value=0.0, value=10000.0)
+  tasa_anual_pct = st.number_input(
+      "Tasa anual (%):", min_value=0.0, value=12.0
+  )
+  plazo_meses = st.number_input(
+      "Plazo en meses:", min_value=1, value=12, step=1
+  )
+  
+  # --- BOTÓN PARA EJECUTAR Y MOSTRAR RESULTADOS ---
+  if st.button("Ejecutar"):
+      resultado = lfp.calcular_cuota_prestamo_frances(
+          monto, tasa_anual_pct, int(plazo_meses)
+      )
+  
+      # Mostrar el resultado en pantalla usando st.write()
+      st.write("### Resultado de la simulación:")
+      st.write("Cuota Mensual:", resultado["cuota_mensual"])
+      st.write("Total Pagado:", resultado["total_pagado"])
+      st.write("Interés Total:", resultado["interes_total"])
+  
+      # Guardar en el histórico
+      registro = {
+          "Monto": monto,
+          "Tasa Anual (%)": tasa_anual_pct,
+          "Plazo (Meses)": int(plazo_meses),
+          "Cuota Mensual": resultado["cuota_mensual"],
+          "Total Pagado": resultado["total_pagado"],
+          "Interés Total": resultado["interes_total"],
+      }
+      st.session_state.historico.append(registro)
+  
+  # --- TABLA HISTÓRICA DE RESULTADOS OBTENIDOS ---
+  st.write("### Histórico de resultados obtenidos")
+  st.dataframe(pd.DataFrame(st.session_state.historico))
+  
 
-  resultado_valor_futuro = lf.valor_futuro_inversion(capital_i ,aporte_m,tasa_a,anios)
-  st.write("El resultados de tu valor futuro de inversión es: ",round(resultado_valor_futuro,2))
   
 else:
   st.write("Te encuentras en el módulo de Ejercicio4")
