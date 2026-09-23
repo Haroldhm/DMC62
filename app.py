@@ -233,6 +233,7 @@ else:
       if nombre != "" and peso_kg > 0 and altura_m > 0:
           nuevo_paciente = Paciente(nombre, peso_kg, altura_m)
           st.session_state.pacientes.append(nuevo_paciente)
+      tab_crear.dataframe(pd.DataFrame(registros))
   
   # =========================================================
   # 2. LEER / VISUALIZAR REGISTROS
@@ -240,7 +241,9 @@ else:
   registros = [{"Nombre": p.nombre,
         "Peso (kg)": p.peso_kg,
         "Altura (m)": p.altura_m,
-        **p.resumen()} for p in st.session_state.pacientes]
+        "Imc:" p.calcular_imc(),
+        "Clasificacion_imc:" p.clacificacion_imc(),
+        "Superficie_corporal:" p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
   tab_leer.dataframe(pd.DataFrame(registros))
   
   # =========================================================
