@@ -237,7 +237,10 @@ else:
   # =========================================================
   # 2. LEER / VISUALIZAR REGISTROS
   # =========================================================
-  registros = [p.resumen() for p in st.session_state.pacientes]
+  registros = [{"Nombre": p.nombre,
+        "Peso (kg)": p.peso_kg,
+        "Altura (m)": p.altura_m,
+        **p.resumen()} for p in st.session_state.pacientes]
   tab_leer.dataframe(pd.DataFrame([registros+nuevo_paciente]))
   
   # =========================================================
