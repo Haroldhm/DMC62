@@ -280,6 +280,14 @@ else:
           if nuevo_nombre != "" and nuevo_peso > 0 and nueva_altura > 0:
               p_actualizado = Paciente(nuevo_nombre, nuevo_peso, nueva_altura)
               st.session_state.pacientes[index] = p_actualizado
+            
+      registros = [{"Nombre": p.nombre,
+        "Peso (kg)": p.peso_kg,
+        "Altura (m)": p.altura_m,
+        "Imc": p.calcular_imc(),
+        "Clasificacion_imc": p.clasificacion_imc(),
+        "Superficie_corporal": p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
+      tab_actualizar.dataframe(pd.DataFrame(registros))
   
   # =========================================================
   # 4. ELIMINAR REGISTRO
@@ -295,4 +303,11 @@ else:
       if paciente_elim != "":
           index_del = nombres_pacientes_del.index(paciente_elim)
           st.session_state.pacientes.pop(index_del)
+  registros = [{"Nombre": p.nombre,
+        "Peso (kg)": p.peso_kg,
+        "Altura (m)": p.altura_m,
+        "Imc": p.calcular_imc(),
+        "Clasificacion_imc": p.clasificacion_imc(),
+        "Superficie_corporal": p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
+  tab_eliminar.dataframe(pd.DataFrame(registros))
     
