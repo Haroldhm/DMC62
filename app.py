@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import libreria_funciones as lf
 import libreria_funciones_proyecto1 as lfp
+from librería_clases_proyecto1 import Paciente
 
 ##Elaboracion de sidebar
 st.sidebar.title("Paginas")
@@ -211,5 +212,87 @@ elif modulos == "Ejercicio3":
 
   
 else:
-  st.write("Te encuentras en el módulo de Ejercicio4")
+  st.subheader("EJERCICIO 4")
+  def validar_positivo(valor: float, nombre: str):
+      if valor <= 0:
+          raise ValueError(f"El parámetro {nombre} debe ser mayor a 0.")
+#################################################################  
+  
+  
+ ############################################################################ 
+  # --- INICIALIZAR LA LISTA DE PACIENTES EN LA SESIÓN ---
+  if "pacientes" not in st.session_state:
+      st.session_state.pacientes = []
+  
+  # --- PESTAÑAS PARA EL CRUD (st.tabs) ---
+  tab_crear, tab_leer, tab_actualizar, tab_eliminar = st.tabs(
+      ["Crear", "Leer", "Actualizar", "Eliminar"]
+  )
+  
+  # =========================================================
+  # 1. CREAR PACIENTE
+  # =========================================================
+  with tab_crear:
+      nombre = st.text_input("Nombre del paciente:")
+      peso_kg = st.number_input("Peso (kg):", min_value=0.0, value=70.0)
+      altura_m = st.number_input("Altura (m):", min_value=0.0, value=1.70)
+  
+      if st.button("Crear registro"):
+          if nombre != "" and peso_kg > 0 and altura_m > 0:
+              nuevo_paciente = Paciente(nombre, peso_kg, altura_m)
+              st.session_state.pacientes.append(nuevo_paciente)
+  
+  # =========================================================
+  # 2. LEER / VISUALIZAR REGISTROS
+  # =========================================================
+  with tab_leer:
+      registros = [p.resumen() for p in st.session_state.pacientes]
+      st.dataframe(pd.DataFrame(registros))
+  
+  # =========================================================
+  # 3. ACTUALIZAR REGISTRO
+  # =========================================================
+  with tab_actualizar:
+      nombres_pacientes = [p.nombre for p in st.session_state.pacientes]
+      paciente_sel = st.selectbox(
+          "Selecciona el paciente a actualizar:",
+          [""] + nombres_pacientes,
+          key="sb_act",
+      )
+  
+      if paciente_sel != "":
+          # Buscar el objeto paciente seleccionado
+          index = nombres_pacientes.index(paciente_sel)
+          p_obj = st.session_state.pacientes[index]
+  
+          nuevo_nombre = st.text_input("Nuevo nombre:", value=p_obj.nombre)
+          nuevo_peso = st.number_input(
+              "Nuevo peso (kg):", min_value=0.0, value=p_obj.peso_kg
+          )
+          nueva_altura = st.number_input(
+              "Nueva altura (m):", min_value=0.0, value=p_obj.altura_m
+          )
+  
+          if st.button("Actualizar registro"):
+              if nuevo_nombre != "" and nuevo_peso > 0 and nueva_altura > 0:
+                  p_actualizado = Paciente(
+                      nuevo_nombre, nuevo_peso, nueva_altura
+                  )
+                  st.session_state.pacientes[index] = p_actualizado
+  
+  # =========================================================
+  # 4. ELIMINAR REGISTRO
+  # =========================================================
+  with tab_eliminar:
+      nombres_pacientes_del = [p.nombre for p in st.session_state.pacientes]
+      paciente_elim = st.selectbox(
+          "Selecciona el paciente a eliminar:",
+          [""] + nombres_pacientes_del,
+          key="sb_del",
+      )
+  
+      if st.button("Eliminar registro"):
+          if paciente_elim != "":
+              index_del = nombres_pacientes_del.index(paciente_elim)
+              st.session_state.pacientes.pop(index_del)
   
