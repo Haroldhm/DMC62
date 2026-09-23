@@ -218,8 +218,8 @@ else:
       st.session_state.pacientes = []
   
   # --- PESTAÑAS PARA EL CRUD ---
-  tab_crear, tab_leer, tab_actualizar, tab_eliminar = st.tabs(
-      ["Crear", "Leer", "Actualizar", "Eliminar"]
+  tab_crear, tab_actualizar, tab_eliminar = st.tabs(
+      ["Crear", "Actualizar", "Eliminar"]
   )
   
   # =========================================================
@@ -240,17 +240,6 @@ else:
         "Clasificacion_imc": p.clasificacion_imc(),
         "Superficie_corporal": p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
       tab_crear.dataframe(pd.DataFrame(registros))
-  
-  # =========================================================
-  # 2. LEER / VISUALIZAR REGISTROS
-  # =========================================================
-  registros = [{"Nombre": p.nombre,
-        "Peso (kg)": p.peso_kg,
-        "Altura (m)": p.altura_m,
-        "Imc": p.calcular_imc(),
-        "Clasificacion_imc": p.clasificacion_imc(),
-        "Superficie_corporal": p.calcular_superficie_corporal()} for p in st.session_state.pacientes]
-  tab_leer.dataframe(pd.DataFrame(registros))
   
   # =========================================================
   # 3. ACTUALIZAR REGISTRO
